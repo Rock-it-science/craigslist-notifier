@@ -34,7 +34,7 @@ while True: # Loop indefinitely
     #    print()
 
     # Make an array where each element is a line from existing_ads.txt
-    f = open("existing_ads.txt", "r")
+    f = open("existing_ads.txt", "r") # May have to create this file manually
     existing_ads = []
     for line in f:
         line_no_nl = line[:-1]
