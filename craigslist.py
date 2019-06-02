@@ -1,5 +1,5 @@
 # Imports
-import urllib2
+import urllib2 # Can also use 'from urllib.request import urlopen' if you don't like urllib2
 from bs4 import BeautifulSoup
 from notify_run import Notify
 import time
@@ -7,16 +7,16 @@ import time
 # Setup
 notify = Notify()
 
-while True:
+while True: # Loop indefinitely
     print('checking for new ads...')
 
     # Making soup
-    search_url = 'https://vancouver.craigslist.org/search/cta?hasPic=1&bundleDuplicates=1&searchNearby=2&nearbyArea=621&nearbyArea=473&nearbyArea=471&nearbyArea=381&nearbyArea=380&nearbyArea=382&nearbyArea=622&nearbyArea=177&nearbyArea=472&min_price=1000&max_price=10000&auto_make_model=toyota&min_auto_year=1995&max_auto_miles=275000&auto_bodytype=7&auto_bodytype=9'
-    search_page = urllib2.urlopen(search_url)
+    search_url = 'https://vancouver.craigslist.org/search/cta?hasPic=1&bundleDuplicates=1&searchNearby=2&nearbyArea=621&nearbyArea=473&nearbyArea=471&nearbyArea=381&nearbyArea=380&nearbyArea=382&nearbyArea=622&nearbyArea=177&nearbyArea=472&min_price=1000&max_price=10000&auto_make_model=toyota&min_auto_year=1995&max_auto_miles=275000&auto_bodytype=7&auto_bodytype=9' # If you have problems with this line, just split it up into multiple lines
+    search_page = urllib2.urlopen(search_url) # For urllib 1 remove urllib2 from this line
     search_soup = BeautifulSoup(search_page, 'html.parser')
 
     # Initializing array for ad links and names
-    #   each element of ads is a 2-element array containing a matching href and title
+    #   each element of ads is a 2-element array containing a matching href and title (could also use a hash table for improved performance when searching ads)
     ads = []
 
     # Loop to populate ads array
@@ -25,8 +25,8 @@ while True:
         title = a_att.text
         ad_element = [href, title]
         ads.append(ad_element)
-
-    # Print all ads and links
+    
+    # Optional block to print all ads and links at a given time (useful for debugging)
     # print(datetime.datetime.now())
     # for ad in ads:
     #    for s in ad:
@@ -58,6 +58,6 @@ while True:
     f.close()
 
     print('waiting 10 mins ...')
-    # Loop every hour
+    # Loop every 10 minutes
     time.sleep(600)
 
